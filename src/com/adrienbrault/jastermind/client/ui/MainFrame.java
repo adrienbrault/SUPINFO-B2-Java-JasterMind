@@ -1,8 +1,5 @@
 package com.adrienbrault.jastermind.client.ui;
 
-import com.adrienbrault.jastermind.model.CodePeg;
-import com.adrienbrault.jastermind.model.KeyPeg;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,13 +26,11 @@ public class MainFrame extends JFrame {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.contentPanel = new JPanel(new BorderLayout());
-        this.setBackground(new Color(34, 139, 34)); // Green.
-        this.setContentPane(this.contentPanel);
-
         this.addMenuBar();
 
-        this.addGameElements();
+        this.setBackground(new Color(34, 139, 34)); // Green.
+
+        this.createNewGamePanel();
 
         this.pack();
         this.setMinimumSize(this.getSize());
@@ -67,13 +62,20 @@ public class MainFrame extends JFrame {
         });
     }
 
+    public void createNewGamePanel() {
+        this.contentPanel = new JPanel(new BorderLayout());
+        this.setContentPane(this.contentPanel);
+
+        this.addGameElements();
+    }
+
     protected void addGameElements() {
         this.boardPanel = new BoardPanel();
-        JPanel boardPanelContainer = new JPanel();
-        boardPanelContainer.add(this.boardPanel);
-        this.add(boardPanelContainer, BorderLayout.CENTER);
+        JPanel container = new JPanel();
+        container.add(this.boardPanel);
+        this.add(container, BorderLayout.CENTER);
 
-        this.choicePegPanel = new JPanel();
+        this.choicePegPanel = new CodePegChoicesPanel();
         this.add(choicePegPanel, BorderLayout.SOUTH);
     }
 

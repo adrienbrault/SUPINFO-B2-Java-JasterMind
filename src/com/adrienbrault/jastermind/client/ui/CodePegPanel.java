@@ -1,5 +1,7 @@
 package com.adrienbrault.jastermind.client.ui;
 
+import com.adrienbrault.jastermind.model.CodePeg;
+
 import java.awt.*;
 
 /**
@@ -12,7 +14,13 @@ public class CodePegPanel extends PegPanel {
 
     CodePegPanel() {
         super();
+    }
 
+    CodePegPanel(CodePeg peg) {
+        super(peg);
+    }
+
+    protected void setPreferredSize() {
         this.setPreferredSize(new Dimension(30, 30));
     }
 

@@ -1,13 +1,9 @@
 package com.adrienbrault.jastermind.client.ui;
 
-import com.adrienbrault.jastermind.model.CodePeg;
-import com.adrienbrault.jastermind.model.KeyPeg;
 import com.adrienbrault.jastermind.model.Peg;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +11,7 @@ import java.util.Map;
  * @Author: adrienbrault
  * @Date: 04/06/11 13:05
  */
-abstract public class PegPanel extends JPanel {
+abstract public class PegPanel extends JButton {
 
     final static Color defaultColor = Color.black;
     
@@ -23,14 +19,16 @@ abstract public class PegPanel extends JPanel {
     protected Peg peg;
 
     PegPanel() {
-        
+        this.setPreferredSize();
     }
 
     PegPanel(Peg peg) {
         this();
-
+        
         this.peg = peg;
     }
+
+    protected abstract void setPreferredSize();
 
     @Override
     public void paintComponent(Graphics graphics) {
