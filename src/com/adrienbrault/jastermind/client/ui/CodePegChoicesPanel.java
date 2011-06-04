@@ -1,6 +1,7 @@
 package com.adrienbrault.jastermind.client.ui;
 
 import com.adrienbrault.jastermind.model.CodePeg;
+import com.sun.org.apache.bcel.internal.classfile.Code;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,15 +20,17 @@ public class CodePegChoicesPanel extends JPanel {
         this.setBorder(BorderFactory.createLineBorder(Color.black,  2)); // 2px black border;
         this.setBackground(new Color(160, 82, 45)); // Brown.
 
-        JPanel container = new JPanel();
-        this.add(container);
-        container.setBackground(this.getBackground());
+        this.setLayout(new GridLayout(1, this.pegPanels.length));
 
         for (int i=0; i<CodePeg.values().length; i++) {
             this.pegPanels[i] = new CodePegPanel(CodePeg.values()[i]);
 
-            container.add(this.pegPanels[i]);
+            this.add(this.pegPanels[i]);
         }
+
+        Dimension size = this.getPreferredSize();
+        size.width += 100;
+        this.setPreferredSize(size);
     }
 
     public PegPanel[] getPegPanels() {
