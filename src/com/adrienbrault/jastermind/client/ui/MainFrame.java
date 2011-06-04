@@ -1,8 +1,10 @@
 package com.adrienbrault.jastermind.client.ui;
 
-import com.apple.eawt.Application;
+import com.adrienbrault.jastermind.model.CodePeg;
+import com.adrienbrault.jastermind.model.KeyPeg;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,24 +16,30 @@ import java.awt.event.ActionListener;
  */
 public class MainFrame extends JFrame {
 
-    protected JPanel contentPane;
+    protected JPanel contentPanel;
     protected JMenuBar menuBar;
+
+    protected BoardPanel boardPanel;
+    protected JPanel choicePegPanel;
 
     public MainFrame() {
         super();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.contentPane = new JPanel();
-        this.setContentPane(this.contentPane);
+        this.contentPanel = new JPanel(new BorderLayout());
+        this.setBackground(new Color(34, 139, 34)); // Green.
+        this.setContentPane(this.contentPanel);
 
-        this.setUpMenuBar();
+        this.addMenuBar();
+
+        this.addGameElements();
 
         this.pack();
         this.setMinimumSize(this.getSize());
     }
 
-    protected void setUpMenuBar() {
+    protected void addMenuBar() {
         // Mac OS Specific.
         if (System.getProperty("os.name").toLowerCase().startsWith("mac os x")) {
             System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -55,6 +63,14 @@ public class MainFrame extends JFrame {
                 System.exit(0);
             }
         });
+    }
+
+    protected void addGameElements() {
+        this.boardPanel = new BoardPanel();
+        this.add(this.boardPanel, BorderLayout.CENTER);
+
+        this.choicePegPanel = new JPanel();
+        this.add(choicePegPanel, BorderLayout.SOUTH);
     }
 
 }

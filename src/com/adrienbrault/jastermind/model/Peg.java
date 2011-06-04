@@ -11,6 +11,7 @@ import java.awt.*;
 public interface Peg {
 
     final static public int LINE_SIZE = 4;
+    final static public int TRY_NUMBER = 8;
 
     public Color getColor();
 
