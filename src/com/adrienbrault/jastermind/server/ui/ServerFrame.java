@@ -21,7 +21,7 @@ public class ServerFrame extends JFrame {
 
         this.setTitle("JasterMindServer.");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        this.setSize(200, 50);
         this.setResizable(false);
     }
 
