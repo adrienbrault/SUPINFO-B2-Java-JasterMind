@@ -33,6 +33,8 @@ public class ServerLauncher {
 
             serviceThread.start();
         }
+
+        System.out.println("Stops listening.");
     }
 
 }

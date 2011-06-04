@@ -84,10 +84,11 @@ public class MainFrame extends JFrame {
     public void removeGamePanel() {
         if (this.gamePanel != null) {
             this.contentPanel.remove(this.gamePanel);
-            this.gamePanel = null;
-            this.boardPanel = null;
-            this.gamePanel = null;
         }
+
+        this.gamePanel = null;
+        this.boardPanel = null;
+        this.gamePanel = null;
 
         this.contentPanel.revalidate();
         this.contentPanel.repaint();

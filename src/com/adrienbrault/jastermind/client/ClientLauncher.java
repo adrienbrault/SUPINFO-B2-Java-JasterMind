@@ -38,10 +38,10 @@ public class ClientLauncher {
         } catch (ConnectException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "The new game failed to start.\nMaybe the server isn't running.", "Error", JOptionPane.ERROR_MESSAGE);
+            window.removeGamePanel();
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "The new game failed to start.", "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
             window.removeGamePanel();
         }
     }

@@ -3,6 +3,9 @@ package com.adrienbrault.jastermind.server;
 import com.adrienbrault.jastermind.model.CodePeg;
 import com.adrienbrault.jastermind.model.Peg;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Random;
 
@@ -15,6 +18,9 @@ import java.util.Random;
 public class CodeMakerService implements Runnable {
 
     protected Socket socket;
+    protected ObjectOutputStream objectOutputStream;
+    protected ObjectInputStream objectInputStream;
+
     protected CodePeg[] secretCode = new CodePeg[Peg.LINE_SIZE];
 
     public CodeMakerService(Socket socket) {
@@ -39,7 +45,22 @@ public class CodeMakerService implements Runnable {
 
 
     public void run() {
-        System.out.println(this);
+        System.out.println("Service start: " + this);
+
+        try {
+            this.objectOutputStream = new ObjectOutputStream(this.socket.getOutputStream());
+            this.objectInputStream = new ObjectInputStream(this.socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                this.socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Service end: " + this);
+        }
     }
 
 }
