@@ -9,9 +9,9 @@ import java.awt.Color;
  * @Date: 04/06/11 11:42
  */
 public enum KeyPeg implements Peg {
-    WRONG   (null),
-    COLOR   (Color.white),
-    CORRECT (Color.black);
+    WRONG   (Color.black),
+    COLOR   (Color.gray),
+    CORRECT (Color.white);
 
     final protected Color color;
 

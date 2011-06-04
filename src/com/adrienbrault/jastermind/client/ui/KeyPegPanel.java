@@ -25,10 +25,4 @@ public class KeyPegPanel extends PegPanel {
         this.setPreferredSize(new Dimension(15, 15));
     }
 
-    public void setPeg(Peg peg) {
-        if (peg.getColor() != null) {
-            super.setPeg(peg);
-        }
-    }
-
 }

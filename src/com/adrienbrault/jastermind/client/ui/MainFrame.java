@@ -31,11 +31,11 @@ public class MainFrame extends JFrame {
 
         this.addMenuBar();
 
-        this.contentPanel = new JPanel();
+        this.contentPanel = new JPanel(new BorderLayout());
         this.setContentPane(this.contentPanel);
 
         this.gamePanel = new GamePanel();
-        this.contentPanel.add(this.gamePanel);
+        this.contentPanel.add(this.gamePanel, BorderLayout.CENTER);
     }
 
     protected void addMenuBar() {
