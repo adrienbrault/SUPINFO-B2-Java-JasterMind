@@ -8,7 +8,7 @@ import java.awt.Color;
  * @Author: adrienbrault
  * @Date: 04/06/11 11:41
  */
-public enum CodePeg {
+public enum CodePeg implements Peg {
     CODE_1  (Color.red),
     CODE_2  (Color.yellow),
     CODE_3  (Color.green),
@@ -18,9 +18,13 @@ public enum CodePeg {
     CODE_7  (Color.pink),
     CODE_8  (Color.cyan);
 
-    final Color color;
+    final protected Color color;
 
     CodePeg(Color color) {
         this.color = color;
+    }
+
+    public Color getColor() {
+        return this.color;
     }
 }
