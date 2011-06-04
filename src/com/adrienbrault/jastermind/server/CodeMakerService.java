@@ -1,6 +1,7 @@
 package com.adrienbrault.jastermind.server;
 
 import com.adrienbrault.jastermind.model.CodePeg;
+import com.adrienbrault.jastermind.model.Peg;
 
 import java.net.Socket;
 import java.util.Random;
@@ -13,10 +14,8 @@ import java.util.Random;
  */
 public class CodeMakerService implements Runnable {
 
-    final static int CODE_SIZE = 4;
-
     protected Socket socket;
-    protected CodePeg[] secretCode = new CodePeg[CODE_SIZE];
+    protected CodePeg[] secretCode = new CodePeg[Peg.LINE_SIZE];
 
     public CodeMakerService(Socket socket) {
         this.socket = socket;
@@ -27,7 +26,7 @@ public class CodeMakerService implements Runnable {
     protected void generateSecretCode() {
         Random randomGenerator = new Random();
         
-        for (int i=0; i< CODE_SIZE; i++) {
+        for (int i=0; i< Peg.LINE_SIZE; i++) {
             int randomPegIndex = randomGenerator.nextInt(CodePeg.values().length);
             this.secretCode[i] = CodePeg.values()[randomPegIndex];
         }
