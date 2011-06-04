@@ -25,6 +25,8 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         super();
 
+        this.setTitle("JasterMind");
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.contentPanel = new JPanel(new BorderLayout());
@@ -67,7 +69,9 @@ public class MainFrame extends JFrame {
 
     protected void addGameElements() {
         this.boardPanel = new BoardPanel();
-        this.add(this.boardPanel, BorderLayout.CENTER);
+        JPanel boardPanelContainer = new JPanel();
+        boardPanelContainer.add(this.boardPanel);
+        this.add(boardPanelContainer, BorderLayout.CENTER);
 
         this.choicePegPanel = new JPanel();
         this.add(choicePegPanel, BorderLayout.SOUTH);

@@ -15,25 +15,30 @@ import java.util.Map;
  * @Author: adrienbrault
  * @Date: 04/06/11 13:05
  */
-public class PegPanel extends JPanel {
+abstract public class PegPanel extends JPanel {
+
+    final static Color defaultColor = Color.black;
+    
 
     protected Peg peg;
 
     PegPanel() {
-        this.setPreferredSize(getPegDimension(null));
+        
     }
 
     PegPanel(Peg peg) {
-        this.setPeg(peg);
+        this();
+
+        this.peg = peg;
     }
 
     @Override
     public void paintComponent(Graphics graphics) {
-        if (this.peg == null) {
-            return;
-        }
-        
-        graphics.setColor(this.peg.getColor());
+        // Draw shapes with antialiasing -> better look
+        Graphics2D graphics2D = (Graphics2D)graphics;
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        graphics.setColor(this.peg != null ? this.peg.getColor() : defaultColor);
 
         graphics.fillOval(0, 0, this.getPreferredSize().width, this.getPreferredSize().height);
     }
@@ -44,18 +49,6 @@ public class PegPanel extends JPanel {
 
     public void setPeg(Peg peg) {
         this.peg = peg;
-        this.setPreferredSize(getPegDimension(peg));
-    }
-
-    final Dimension getPegDimension(Peg peg) {
-        Dimension dimension;
-
-        if (peg != null && peg.getClass() == CodePeg.class) {
-            dimension = new Dimension(15, 15);
-        } else {
-            dimension = new Dimension(30, 30);
-        }
-
-        return dimension;
+        this.revalidate();
     }
 }

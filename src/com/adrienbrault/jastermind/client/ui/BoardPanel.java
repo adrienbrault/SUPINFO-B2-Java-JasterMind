@@ -16,12 +16,12 @@ public class BoardPanel extends JPanel {
     protected BoardLinePanel[] boardLinePanels = new BoardLinePanel[Peg.TRY_NUMBER];
 
     BoardPanel() {
+        super(new GridLayout(Peg.TRY_NUMBER, 1));
+
         for (int i=0; i<Peg.TRY_NUMBER; i++) {
             boardLinePanels[i] = new BoardLinePanel();
             this.add(boardLinePanels[i]);
         }
-
-        this.setPreferredSize(new Dimension(300, 1000));
     }
 
     public BoardLinePanel[] getBoardLinePanels() {
