@@ -101,11 +101,13 @@ public class CodeMakerService implements Runnable {
     protected void generateSecretCode() {
         Random randomGenerator = new Random();
 
+        System.out.print("[");
         for (int i=0; i< Peg.LINE_SIZE; i++) {
             int randomPegIndex = randomGenerator.nextInt(CodePeg.values().length);
             this.secretCode[i] = CodePeg.values()[randomPegIndex];
-            System.out.println(this.secretCode[i]);
+            System.out.print(this.secretCode[i] + " ,");
         }
+        System.out.print("]\n");
     }
 
     protected KeyPeg[] getAnswer(CodePeg[] codePegs) {
