@@ -1,6 +1,7 @@
 package com.adrienbrault.jastermind.client.ui;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,7 @@ public class MainFrame extends JFrame {
     protected JMenuBar menuBar;
     protected JMenuItem newGameMenuItem;
 
+    protected JPanel gamePanel;
     protected BoardPanel boardPanel;
     protected CodePegChoicesPanel codePegChoicePanel;
 
@@ -25,15 +27,14 @@ public class MainFrame extends JFrame {
         super();
 
         this.setTitle("JasterMind");
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setBackground(new Color(34, 139, 34)); // Green.
+        this.setMinimumSize(new Dimension(344, 527));
 
         this.addMenuBar();
 
-        this.setBackground(new Color(34, 139, 34)); // Green.
-
-        this.pack();
-        this.setMinimumSize(new Dimension(344, 522));
+        this.contentPanel = new JPanel();
+        this.setContentPane(this.contentPanel);
     }
 
     protected void addMenuBar() {
@@ -62,21 +63,34 @@ public class MainFrame extends JFrame {
         });
     }
 
-    public void createNewGamePanel() {
-        this.contentPanel = new JPanel(new BorderLayout());
-        this.setContentPane(this.contentPanel);
+    public void createGamePanel() {
+        this.removeGamePanel();
 
-        this.addGameElements();
-    }
+        this.gamePanel = new JPanel(new BorderLayout());
+        this.contentPanel.add(this.gamePanel);
 
-    protected void addGameElements() {
         this.boardPanel = new BoardPanel();
         JPanel container = new JPanel();
         container.add(this.boardPanel);
-        this.add(container, BorderLayout.CENTER);
+        this.gamePanel.add(container, BorderLayout.CENTER);
 
         this.codePegChoicePanel = new CodePegChoicesPanel();
-        this.add(codePegChoicePanel, BorderLayout.SOUTH);
+        this.gamePanel.add(codePegChoicePanel, BorderLayout.SOUTH);
+
+        this.contentPanel.revalidate();
+        this.contentPanel.repaint();
+    }
+
+    public void removeGamePanel() {
+        if (this.gamePanel != null) {
+            this.contentPanel.remove(this.gamePanel);
+            this.gamePanel = null;
+            this.boardPanel = null;
+            this.gamePanel = null;
+        }
+
+        this.contentPanel.revalidate();
+        this.contentPanel.repaint();
     }
 
     public BoardPanel getBoardPanel() {

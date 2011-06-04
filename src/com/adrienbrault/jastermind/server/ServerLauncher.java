@@ -10,10 +10,12 @@ import java.net.Socket;
  * @Author: adrienbrault
  * @Date: 03/06/11 20:00
  */
-public class Launcher {
+public class ServerLauncher {
+
+    final public static int SERVER_PORT = 2201;
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(2201, 5);
+        ServerSocket serverSocket = new ServerSocket(SERVER_PORT, 5);
 
         handleRequests(serverSocket);
     }
