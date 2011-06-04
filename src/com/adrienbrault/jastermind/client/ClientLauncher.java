@@ -33,16 +33,21 @@ public class ClientLauncher {
 
     protected static void startNewGame() {
         try {
-            window.createGamePanel();
-            currentGameController = new GameController(window.getCodePegChoicePanel(), window.getBoardPanel());
+            window.getGamePanel().create();
+
+            if (currentGameController != null) {
+                currentGameController.closeStreams();
+            }
+            
+            currentGameController = new GameController(window.getGamePanel());
         } catch (ConnectException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "The new game failed to start.\nMaybe the server isn't running.", "Error", JOptionPane.ERROR_MESSAGE);
-            window.removeGamePanel();
+            window.getGamePanel().remove();
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "The new game failed to start.", "Error", JOptionPane.ERROR_MESSAGE);
-            window.removeGamePanel();
+            window.getGamePanel().remove();
         }
     }
 

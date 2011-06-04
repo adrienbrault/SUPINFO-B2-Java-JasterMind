@@ -1,6 +1,7 @@
 package com.adrienbrault.jastermind.server;
 
 import com.adrienbrault.jastermind.model.CodePeg;
+import com.adrienbrault.jastermind.model.KeyPeg;
 import com.adrienbrault.jastermind.model.Peg;
 
 import java.io.IOException;
@@ -50,16 +51,54 @@ public class CodeMakerService implements Runnable {
         try {
             this.objectOutputStream = new ObjectOutputStream(this.socket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(this.socket.getInputStream());
+
+            while (this.objectInputStream != null) {
+                CodePeg[] codePegs = (CodePeg[])this.objectInputStream.readObject();
+
+                System.out.println(codePegs);
+
+                KeyPeg[] keyPegs = new KeyPeg[Peg.LINE_SIZE];
+
+                for (int i=0; i<Peg.LINE_SIZE; i++) {
+                    keyPegs[i] = KeyPeg.WRONG;
+                }
+
+                this.objectOutputStream.writeObject(keyPegs);
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } finally {
+            this.closeStreams();
+
+            System.out.println("Service end: " + this);
+        }
+    }
+
+    protected void closeStreams() {
+        if (this.objectInputStream != null) {
+            try {
+                this.objectInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (this.objectOutputStream != null) {
+            try {
+                this.objectOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        if (this.socket != null) {
             try {
                 this.socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            System.out.println("Service end: " + this);
         }
     }
 

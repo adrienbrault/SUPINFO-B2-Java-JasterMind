@@ -19,9 +19,7 @@ public class MainFrame extends JFrame {
     protected JMenuBar menuBar;
     protected JMenuItem newGameMenuItem;
 
-    protected JPanel gamePanel;
-    protected BoardPanel boardPanel;
-    protected CodePegChoicesPanel codePegChoicePanel;
+    protected GamePanel gamePanel;
 
     public MainFrame() {
         super();
@@ -35,6 +33,9 @@ public class MainFrame extends JFrame {
 
         this.contentPanel = new JPanel();
         this.setContentPane(this.contentPanel);
+
+        this.gamePanel = new GamePanel();
+        this.contentPanel.add(this.gamePanel);
     }
 
     protected void addMenuBar() {
@@ -63,47 +64,11 @@ public class MainFrame extends JFrame {
         });
     }
 
-    public void createGamePanel() {
-        this.removeGamePanel();
-
-        this.gamePanel = new JPanel(new BorderLayout());
-        this.contentPanel.add(this.gamePanel);
-
-        this.boardPanel = new BoardPanel();
-        JPanel container = new JPanel();
-        container.add(this.boardPanel);
-        this.gamePanel.add(container, BorderLayout.CENTER);
-
-        this.codePegChoicePanel = new CodePegChoicesPanel();
-        this.gamePanel.add(codePegChoicePanel, BorderLayout.SOUTH);
-
-        this.contentPanel.revalidate();
-        this.contentPanel.repaint();
-    }
-
-    public void removeGamePanel() {
-        if (this.gamePanel != null) {
-            this.contentPanel.remove(this.gamePanel);
-        }
-
-        this.gamePanel = null;
-        this.boardPanel = null;
-        this.gamePanel = null;
-
-        this.contentPanel.revalidate();
-        this.contentPanel.repaint();
-    }
-
-    public BoardPanel getBoardPanel() {
-        return boardPanel;
-    }
-
-    public CodePegChoicesPanel getCodePegChoicePanel() {
-        return codePegChoicePanel;
-    }
-
     public void addNewGameActionListener(ActionListener actionListener) {
         this.newGameMenuItem.addActionListener(actionListener);
     }
 
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
 }

@@ -36,9 +36,16 @@ abstract public class PegPanel extends JButton {
         Graphics2D graphics2D = (Graphics2D)graphics;
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        graphics.setColor(this.peg != null ? this.peg.getColor() : defaultColor);
+        if (this.peg != null) {
+            graphics.setColor(this.peg.getColor());
 
-        graphics.fillOval(0, 0, this.getPreferredSize().width, this.getPreferredSize().height);
+            graphics.fillOval(1, 1, this.getPreferredSize().width - 2, this.getPreferredSize().height - 2);
+        }
+        
+        graphics.setColor(defaultColor);
+        graphics.drawOval(1, 1, this.getPreferredSize().width - 2, this.getPreferredSize().height - 2);
+
+
     }
 
     public Peg getPeg() {
@@ -48,5 +55,6 @@ abstract public class PegPanel extends JButton {
     public void setPeg(Peg peg) {
         this.peg = peg;
         this.revalidate();
+        this.repaint();
     }
 }
