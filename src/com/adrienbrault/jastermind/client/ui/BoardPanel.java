@@ -3,7 +3,6 @@ package com.adrienbrault.jastermind.client.ui;
 import com.adrienbrault.jastermind.model.Peg;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,6 +12,8 @@ import java.awt.*;
  */
 public class BoardPanel extends JPanel {
 
+    private static final long serialVersionUID = -5068942359257501992L;
+	
     protected BoardLinePanel[] boardLinePanels = new BoardLinePanel[Peg.TRY_NUMBER];
 
     BoardPanel() {

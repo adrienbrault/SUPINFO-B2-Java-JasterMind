@@ -12,7 +12,9 @@ import java.awt.*;
  */
 public class CodePegPanel extends PegPanel {
 
-    CodePegPanel() {
+    private static final long serialVersionUID = -6725932124466081510L;
+
+	CodePegPanel() {
         super();
     }
 

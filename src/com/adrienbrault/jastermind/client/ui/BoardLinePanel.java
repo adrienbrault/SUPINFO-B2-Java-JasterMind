@@ -14,7 +14,9 @@ import java.awt.*;
  */
 public class BoardLinePanel extends JPanel {
 
-    protected PegPanel[] codePegPanels = new PegPanel[Peg.LINE_SIZE];
+    private static final long serialVersionUID = -3688229893922785878L;
+	
+	protected PegPanel[] codePegPanels = new PegPanel[Peg.LINE_SIZE];
     protected PegPanel[] keyPegPanels = new PegPanel[Peg.LINE_SIZE];
 
     protected JPanel keyPegPanel;

@@ -1,7 +1,6 @@
 package com.adrienbrault.jastermind.client.ui;
 
 import com.adrienbrault.jastermind.model.KeyPeg;
-import com.adrienbrault.jastermind.model.Peg;
 
 import java.awt.*;
 
@@ -13,7 +12,9 @@ import java.awt.*;
  */
 public class KeyPegPanel extends PegPanel {
 
-    KeyPegPanel() {
+    private static final long serialVersionUID = 8692452525952705250L;
+
+	KeyPegPanel() {
         super();
     }
 

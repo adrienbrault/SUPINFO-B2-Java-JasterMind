@@ -13,7 +13,10 @@ import java.awt.*;
  */
 abstract public class PegPanel extends JButton {
 
-    final static Color defaultColor = Color.black;
+    private static final long serialVersionUID = -3934386516352075932L;
+
+
+	final static Color defaultColor = Color.black;
     
 
     protected Peg peg;

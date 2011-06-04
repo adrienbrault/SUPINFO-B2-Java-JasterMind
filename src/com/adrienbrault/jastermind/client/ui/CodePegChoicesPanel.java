@@ -1,7 +1,6 @@
 package com.adrienbrault.jastermind.client.ui;
 
 import com.adrienbrault.jastermind.model.CodePeg;
-import com.sun.org.apache.bcel.internal.classfile.Code;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +13,8 @@ import java.awt.*;
  */
 public class CodePegChoicesPanel extends JPanel {
 
+    private static final long serialVersionUID = 6515216729364254105L;
+	
     protected PegPanel[] pegPanels = new PegPanel[CodePeg.values().length];
 
     CodePegChoicesPanel() {

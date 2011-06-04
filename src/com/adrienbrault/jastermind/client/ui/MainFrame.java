@@ -1,7 +1,6 @@
 package com.adrienbrault.jastermind.client.ui;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +13,9 @@ import java.awt.event.ActionListener;
  */
 public class MainFrame extends JFrame {
 
-    protected JPanel contentPanel;
+    private static final long serialVersionUID = -7278492502872181533L;
+
+	protected JPanel contentPanel;
 
     protected JMenuBar menuBar;
     protected JMenuItem newGameMenuItem;

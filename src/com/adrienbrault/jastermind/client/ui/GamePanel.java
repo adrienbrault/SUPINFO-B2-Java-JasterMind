@@ -11,6 +11,8 @@ import java.awt.*;
  */
 public class GamePanel extends JPanel {
 
+    private static final long serialVersionUID = -6679449204574913692L;
+	
     protected BoardPanel boardPanel;
     protected CodePegChoicesPanel codePegChoicePanel;
 
