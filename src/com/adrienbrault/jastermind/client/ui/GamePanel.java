@@ -34,12 +34,7 @@ public class GamePanel extends JPanel {
     }
 
     public void remove() {
-        if (this.boardPanel != null) {
-            this.remove(this.boardPanel);
-        }
-        if (this.codePegChoicePanel != null) {
-            this.remove(this.codePegChoicePanel);
-        }
+        this.removeAll();
 
         this.boardPanel = null;
         this.codePegChoicePanel = null;
