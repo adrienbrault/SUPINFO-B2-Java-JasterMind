@@ -6,6 +6,7 @@ import com.adrienbrault.jastermind.model.KeyPeg;
 import com.adrienbrault.jastermind.model.Peg;
 import com.adrienbrault.jastermind.server.ServerLauncher;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -101,11 +102,13 @@ public class GameController {
 
             this.currentColumn = (this.currentColumn + 1) % Peg.LINE_SIZE;
             if (this.currentColumn == 0) {
-                this.checkRow();
-                
-                this.currentRow++;
-                if (this.currentRow > Peg.TRY_NUMBER) {
-                    this.gameEnded(false);
+                if (this.checkRow()) {
+                    this.gameEnded(true);
+                } else {
+                    this.currentRow++;
+                    if (this.currentRow >= Peg.TRY_NUMBER) {
+                        this.gameEnded(false);
+                    }
                 }
             }
         }
@@ -114,22 +117,36 @@ public class GameController {
     protected void gameEnded(boolean hasUserWin) {
         this.removeCodePegChoicesListeners();
         this.closeStreams();
+
+        String message = hasUserWin ? "You win." : "You lose";
+        JOptionPane.showMessageDialog(null, message);
     }
 
-    protected void checkRow() {
+    protected boolean checkRow() {
         try {
             this.objectOutputStream.writeObject(this.getCurrentRowCodePegs());
 
             KeyPeg[] keyPegs = (KeyPeg[])this.objectInputStream.readObject();
 
+            int correctPeg = 0;
             for (int i=0; i<Peg.LINE_SIZE; i++) {
                 this.getKeyPegPanel(this.currentRow, i).setPeg(keyPegs[i]);
+
+                if (keyPegs[i] == KeyPeg.CORRECT) {
+                    correctPeg++;
+                }
+            }
+
+            if (correctPeg == 4) {
+                return true;
             }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        return false;
     }
 
 }

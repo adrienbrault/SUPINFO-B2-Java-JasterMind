@@ -1,6 +1,7 @@
 package com.adrienbrault.jastermind.client.ui;
 
 import com.adrienbrault.jastermind.model.KeyPeg;
+import com.adrienbrault.jastermind.model.Peg;
 
 import java.awt.*;
 
@@ -22,6 +23,12 @@ public class KeyPegPanel extends PegPanel {
 
     protected void setPreferredSize() {
         this.setPreferredSize(new Dimension(15, 15));
+    }
+
+    public void setPeg(Peg peg) {
+        if (peg.getColor() != null) {
+            super.setPeg(peg);
+        }
     }
 
 }

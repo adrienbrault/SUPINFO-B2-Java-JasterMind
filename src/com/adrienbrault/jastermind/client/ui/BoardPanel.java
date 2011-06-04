@@ -20,7 +20,7 @@ public class BoardPanel extends JPanel {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        for (int i=0; i<Peg.TRY_NUMBER; i++) {
+        for (int i=Peg.TRY_NUMBER-1; i>=0; i--) {
             boardLinePanels[i] = new BoardLinePanel();
             this.add(boardLinePanels[i]);
         }

@@ -7,7 +7,9 @@ import com.adrienbrault.jastermind.model.Peg;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -30,19 +32,11 @@ public class CodeMakerService implements Runnable {
         this.generateSecretCode();
     }
 
-    protected void generateSecretCode() {
-        Random randomGenerator = new Random();
-        
-        for (int i=0; i< Peg.LINE_SIZE; i++) {
-            int randomPegIndex = randomGenerator.nextInt(CodePeg.values().length);
-            this.secretCode[i] = CodePeg.values()[randomPegIndex];
-        }
-    }
-
     @Override
     public String toString() {
         return super.toString() + " " + this.secretCode;
     }
+    
 
 
     public void run() {
@@ -55,13 +49,7 @@ public class CodeMakerService implements Runnable {
             while (this.objectInputStream != null) {
                 CodePeg[] codePegs = (CodePeg[])this.objectInputStream.readObject();
 
-                System.out.println(codePegs);
-
-                KeyPeg[] keyPegs = new KeyPeg[Peg.LINE_SIZE];
-
-                for (int i=0; i<Peg.LINE_SIZE; i++) {
-                    keyPegs[i] = KeyPeg.WRONG;
-                }
+                KeyPeg[] keyPegs = this.getAnswer(codePegs);
 
                 this.objectOutputStream.writeObject(keyPegs);
             }
@@ -82,6 +70,8 @@ public class CodeMakerService implements Runnable {
                 this.objectInputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                this.objectInputStream = null;
             }
         }
 
@@ -90,6 +80,8 @@ public class CodeMakerService implements Runnable {
                 this.objectOutputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                this.objectOutputStream = null;
             }
         }
         
@@ -98,8 +90,57 @@ public class CodeMakerService implements Runnable {
                 this.socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                this.socket = null;
             }
         }
+    }
+
+    
+
+    protected void generateSecretCode() {
+        Random randomGenerator = new Random();
+
+        for (int i=0; i< Peg.LINE_SIZE; i++) {
+            int randomPegIndex = randomGenerator.nextInt(CodePeg.values().length);
+            this.secretCode[i] = CodePeg.values()[randomPegIndex];
+            System.out.println(this.secretCode[i]);
+        }
+    }
+
+    protected KeyPeg[] getAnswer(CodePeg[] codePegs) {
+        KeyPeg[] keyPegs = new KeyPeg[Peg.LINE_SIZE];
+        Arrays.fill(keyPegs, KeyPeg.WRONG);
+        int keyPegsIndex = 0;
+
+        // Check positions.
+        boolean[] correctPositionsUsed = new boolean[Peg.LINE_SIZE];
+        Arrays.fill(correctPositionsUsed, false);
+
+        for (int i=0; i<Peg.LINE_SIZE; i++) {
+            if (codePegs[i] == this.secretCode[i]) {
+                correctPositionsUsed[i] = true;
+                keyPegs[keyPegsIndex++] = KeyPeg.CORRECT;
+            }
+        }
+        
+
+        // Checking colors.
+        boolean[] correctColorUsed = new boolean[Peg.LINE_SIZE];
+        Arrays.fill(correctColorUsed, false);
+
+        for (int i=0; i<Peg.LINE_SIZE; i++) {
+            if (!correctPositionsUsed[i]) {
+                for (int j=0; j<Peg.LINE_SIZE; j++) {
+                    if (codePegs[i] == this.secretCode[j] && !correctColorUsed[j]) {
+                        correctColorUsed[j] = true;
+                        keyPegs[keyPegsIndex++] = KeyPeg.COLOR;
+                    }
+                }
+            }
+        }
+
+        return keyPegs;
     }
 
 }
