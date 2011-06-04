@@ -1,8 +1,10 @@
 package com.adrienbrault.jastermind.client;
 
+import com.adrienbrault.jastermind.client.controller.GameController;
 import com.adrienbrault.jastermind.client.ui.MainFrame;
 
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,9 +14,23 @@ import javax.swing.*;
  */
 public class Launcher {
 
+    static protected GameController currentGameController;
+    static protected MainFrame window;
+
     public static void main(String[] args) {
-        MainFrame window = new MainFrame();
+        window = new MainFrame();
         window.setVisible(true);
+
+        window.addNewGameActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                startNewGame();
+            }
+        });
+    }
+
+    protected static void startNewGame() {
+        window.createNewGamePanel();
+        currentGameController = new GameController(window.getCodePegChoicePanel(), window.getBoardPanel());
     }
 
 }

@@ -14,10 +14,12 @@ import java.awt.event.ActionListener;
 public class MainFrame extends JFrame {
 
     protected JPanel contentPanel;
+
     protected JMenuBar menuBar;
+    protected JMenuItem newGameMenuItem;
 
     protected BoardPanel boardPanel;
-    protected JPanel choicePegPanel;
+    protected CodePegChoicesPanel codePegChoicePanel;
 
     public MainFrame() {
         super();
@@ -30,10 +32,8 @@ public class MainFrame extends JFrame {
 
         this.setBackground(new Color(34, 139, 34)); // Green.
 
-        this.createNewGamePanel();
-
         this.pack();
-        this.setMinimumSize(this.getSize());
+        this.setMinimumSize(new Dimension(344, 522));
     }
 
     protected void addMenuBar() {
@@ -49,8 +49,8 @@ public class MainFrame extends JFrame {
         JMenu fileMenu = new JMenu("File");
         this.menuBar.add(fileMenu);
 
-        JMenuItem newMenuItem = new JMenuItem("New Game");
-        fileMenu.add(newMenuItem);
+        newGameMenuItem = new JMenuItem("New Game");
+        fileMenu.add(newGameMenuItem);
 
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         fileMenu.add(exitMenuItem);
@@ -75,8 +75,20 @@ public class MainFrame extends JFrame {
         container.add(this.boardPanel);
         this.add(container, BorderLayout.CENTER);
 
-        this.choicePegPanel = new CodePegChoicesPanel();
-        this.add(choicePegPanel, BorderLayout.SOUTH);
+        this.codePegChoicePanel = new CodePegChoicesPanel();
+        this.add(codePegChoicePanel, BorderLayout.SOUTH);
+    }
+
+    public BoardPanel getBoardPanel() {
+        return boardPanel;
+    }
+
+    public CodePegChoicesPanel getCodePegChoicePanel() {
+        return codePegChoicePanel;
+    }
+
+    public void addNewGameActionListener(ActionListener actionListener) {
+        this.newGameMenuItem.addActionListener(actionListener);
     }
 
 }
