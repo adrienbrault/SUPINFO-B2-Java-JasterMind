@@ -115,26 +115,22 @@ public class CodeMakerService implements Runnable {
         int keyPegsIndex = 0;
 
         // Check positions.
-        boolean[] correctPositionsUsed = new boolean[Peg.LINE_SIZE];
-        Arrays.fill(correctPositionsUsed, false);
+        boolean[] positionUsed = new boolean[Peg.LINE_SIZE];
+        Arrays.fill(positionUsed, false);
 
         for (int i=0; i<Peg.LINE_SIZE; i++) {
             if (codePegs[i] == this.secretCode[i]) {
-                correctPositionsUsed[i] = true;
+                positionUsed[i] = true;
                 keyPegs[keyPegsIndex++] = KeyPeg.CORRECT;
             }
         }
-        
 
         // Checking colors.
-        boolean[] correctColorUsed = new boolean[Peg.LINE_SIZE];
-        Arrays.fill(correctColorUsed, false);
-
         for (int i=0; i<Peg.LINE_SIZE; i++) {
-            if (!correctPositionsUsed[i]) {
+            if (!positionUsed[i]) {
                 for (int j=0; j<Peg.LINE_SIZE; j++) {
-                    if (codePegs[i] == this.secretCode[j] && !correctColorUsed[j]) {
-                        correctColorUsed[j] = true;
+                    if (codePegs[i] == this.secretCode[j] && !positionUsed[j]) {
+                        positionUsed[j] = true;
                         keyPegs[keyPegsIndex++] = KeyPeg.COLOR;
                     }
                 }
