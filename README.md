@@ -11,4 +11,4 @@ Ce n'est pas parfait, mais je suis content du résultat pour les 10h que j'ai pa
 
 ##Screenshot
 
-![JasterMind](screenshot.png)
+![JasterMind](raw/master/screenshot.png)
